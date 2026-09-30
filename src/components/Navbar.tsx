@@ -1,194 +1,158 @@
 'use client';
-
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
-import { Menu, X, ChevronDown, Plane, Hotel, Car, ShieldCheck, GraduationCap, Briefcase, Globe, Phone } from 'lucide-react';
+import { Menu, X, ChevronDown, ArrowUpRight, Mail, Phone } from 'lucide-react';
 
-const megaMenuData = {
-  travelServices: [
-    { name: 'Flight Booking', href: '#flights', icon: <Plane className="w-5 h-5 text-crimson" />, desc: 'Global routes & private charters' },
-    { name: 'Accommodations', href: '#hotels', icon: <Hotel className="w-5 h-5 text-crimson" />, desc: 'Luxury stays & boutique hotels' },
-    { name: 'Car Rentals', href: '#cars', icon: <Car className="w-5 h-5 text-crimson" />, desc: 'Premium fleet in Kigali & EA' },
-    { name: 'Airport Transfers', href: '#transfers', icon: <ShieldCheck className="w-5 h-5 text-crimson" />, desc: 'Reliable, secure pickups' },
-  ],
-  visaHub: [
-    { name: 'Student Visa Assistance', href: '#visa-student', icon: <GraduationCap className="w-5 h-5 text-crimson" />, desc: 'Study globally with ease' },
-    { name: 'Business & Tourist Visas', href: '#visa-business', icon: <Briefcase className="w-5 h-5 text-crimson" />, desc: 'Fast-track processing' },
-    { name: 'Document Processing', href: '#visa-docs', icon: <Globe className="w-5 h-5 text-crimson" />, desc: 'Apostille & certified translations' },
-  ],
-  tours: [
-    { name: 'Rwanda Packages', href: '#tours-rw', icon: <Globe className="w-5 h-5 text-crimson" />, desc: 'Land of a thousand hills' },
-    { name: 'East Africa Safaris', href: '#tours-ea', icon: <Plane className="w-5 h-5 text-crimson" />, desc: 'Unforgettable wildlife journeys' },
-    { name: 'Corporate Travel', href: '#tours-corp', icon: <Briefcase className="w-5 h-5 text-crimson" />, desc: 'Efficient business logistics' },
-  ]
-};
+const NAV_DESTINATIONS = [
+  { label: 'Rwanda', href: '/destinations/rwanda' },
+  { label: 'Kenya', href: '/destinations/kenya' },
+  { label: 'Tanzania', href: '/destinations/tanzania' },
+  { label: 'Uganda', href: '/destinations/uganda' },
+];
+const NAV_ASSISTANCE = [
+  { label: 'Air tickets', href: '/services/flights' },
+  { label: 'Visa assistance', href: '/services/visas' },
+  { label: 'Hotel bookings', href: '/services/hotels' },
+  { label: 'Tour operations', href: '/services/tours' },
+  { label: 'Car rental & transfers', href: '/services/car-rental' },
+];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeMenu, setActiveMenu] = useState<string | null>(null);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const { scrollY } = useScroll();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsScrolled(latest > 50);
-  });
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
 
-  const NavItem = ({ name, id, items }: { name: string, id: string, items: any[] }) => (
-    <div 
-      className="relative h-full flex items-center"
-      onMouseEnter={() => setActiveMenu(id)}
-      onMouseLeave={() => setActiveMenu(null)}
-    >
-      <button className={`flex items-center space-x-1 px-4 py-2 font-semibold transition-colors ${isScrolled ? 'text-white hover:text-crimson' : 'text-white hover:text-crimson text-shadow-sm'}`}>
-        <span>{name}</span>
-        <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${activeMenu === id ? 'rotate-180' : ''}`} />
-      </button>
-
-      <AnimatePresence>
-        {activeMenu === id && (
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 15 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="absolute top-[calc(100%-10px)] left-1/2 -translate-x-1/2 pt-4 w-[600px] z-50 pointer-events-auto"
-          >
-            <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 grid grid-cols-2 gap-4">
-              {items.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="flex items-start space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-all group"
-                >
-                  <div className="p-2 bg-crimson/5 rounded-lg group-hover:bg-crimson/10 transition-colors">
-                    {item.icon}
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate text-sm group-hover:text-crimson transition-colors">{item.name}</h4>
-                    <p className="text-xs text-slate/60 mt-1">{item.desc}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
+  const scrollToEnquiry = () => {
+    const el = document.getElementById('request');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <>
-      <nav 
-        className={`fixed w-full z-[100] transition-all duration-500 ${
-          isScrolled 
-            ? 'bg-slate/95 backdrop-blur-lg py-3 border-b-2 border-crimson shadow-2xl' 
-            : 'bg-transparent py-6'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-full">
-            <Link href="/" className="flex-shrink-0 flex items-center group">
-              <span className={`text-2xl font-black tracking-tighter transition-colors duration-500 ${isScrolled ? 'text-white' : 'text-white'}`}>
-                STUNNING<span className="text-crimson">TRAVEL</span>
-              </span>
-            </Link>
-            
-            <div className="hidden lg:flex items-center h-full">
-              <Link href="/" className="px-4 py-2 text-white font-semibold hover:text-crimson transition-colors">Home</Link>
-              <NavItem name="Travel Services" id="travel" items={megaMenuData.travelServices} />
-              <NavItem name="Visa Hub" id="visa" items={megaMenuData.visaHub} />
-              <NavItem name="Tours" id="tours" items={megaMenuData.tours} />
-              <Link href="#about" className="px-4 py-2 text-white font-semibold hover:text-crimson transition-colors">About Us</Link>
-              
-              <div className="ml-8">
-                <Link
-                  href="#book"
-                  className="bg-crimson hover:bg-white hover:text-crimson text-white px-8 py-3 rounded-full font-bold transition-all shadow-lg hover:shadow-crimson/20 active:scale-95"
-                >
-                  Book Now
-                </Link>
-              </div>
-            </div>
+      <a className="skip-link" href="#main">Skip to content</a>
 
-            <div className="lg:hidden flex items-center">
-              <button
-                onClick={() => setIsOpen(true)}
-                className="text-white p-2 hover:bg-white/10 rounded-full transition-colors"
-              >
-                <Menu size={32} />
-              </button>
+      {/* Contact bar */}
+      <div className="contact-bar">
+        <div>
+          <a href="mailto:info@stunningrw.com">
+            <Mail size={13} aria-hidden="true" />
+            info@stunningrw.com
+          </a>
+          <a href="tel:+250788842000">
+            <Phone size={13} aria-hidden="true" />
+            Office: +250 788 842 000
+          </a>
+          <a href="tel:+250788312724">
+            Mobile: +250 788 312 724
+          </a>
+        </div>
+        <div className="social-small">
+          <a href="https://www.facebook.com/marvelousrwandatours" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/stunningtraveltours_rw/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/stunning-travel-tours-ltd/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@stunningtraveltours_rw" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+          </a>
+        </div>
+      </div>
+
+      {/* Main header */}
+      <header className="site-header">
+        <Link className="real-logo" href="/" aria-label="Stunning Travel & Tours home">
+          <img
+            src="/images/stunning travel and tours logo.png"
+            alt="Stunning Travel & Tours Ltd"
+            style={{ maxHeight: '48px', width: 'auto', objectFit: 'contain' }}
+            onError={(e) => {
+              (e.currentTarget as HTMLElement).style.display = 'none';
+            }}
+          />
+        </Link>
+
+        <nav aria-label="Main navigation">
+          <Link href="/">Home</Link>
+          <Link href="/safaris">Our safaris</Link>
+
+          {/* Destinations dropdown */}
+          <div className="dropdown-wrapper">
+            <button type="button" className="nav-dropdown">
+              Destinations <ChevronDown size={14} />
+            </button>
+            <div className="dropdown-menu">
+              {NAV_DESTINATIONS.map(d => (
+                <Link key={d.href} href={d.href}>{d.label}</Link>
+              ))}
             </div>
           </div>
+
+          {/* Travel assistance dropdown */}
+          <div className="dropdown-wrapper">
+            <button type="button" className="nav-dropdown">
+              Travel assistance <ChevronDown size={14} />
+            </button>
+            <div className="dropdown-menu">
+              {NAV_ASSISTANCE.map(d => (
+                <Link key={d.href} href={d.href}>{d.label}</Link>
+              ))}
+            </div>
+          </div>
+
+          <Link href="/about">About us</Link>
+          <Link href="/blog">Blog</Link>
+          <Link href="/contact">Contact us</Link>
+        </nav>
+
+        <button className="btn header-cta" onClick={scrollToEnquiry}>
+          Plan your trip <ArrowUpRight size={17} />
+        </button>
+
+        <button
+          className="mobile-toggle"
+          aria-label="Open navigation"
+          onClick={() => setMobileOpen(true)}
+        >
+          <Menu size={24} />
+        </button>
+      </header>
+
+      {/* Mobile nav */}
+      <nav className={`mobile-nav ${mobileOpen ? 'open' : ''}`} aria-label="Mobile navigation">
+        <div className="mobile-nav-head">
+          <img
+            src="/images/stunning travel and tours logo.png"
+            alt="Stunning Travel & Tours"
+            style={{ maxHeight: '40px', width: 'auto' }}
+          />
+          <button aria-label="Close navigation" onClick={() => setMobileOpen(false)} style={{ background: 'none', border: 'none' }}>
+            <X size={24} />
+          </button>
         </div>
+        <Link href="/" onClick={() => setMobileOpen(false)}>Home</Link>
+        <Link href="/safaris" onClick={() => setMobileOpen(false)}>Our safaris</Link>
+        <Link href="/destinations/rwanda" onClick={() => setMobileOpen(false)}>Rwanda</Link>
+        <Link href="/destinations/kenya" onClick={() => setMobileOpen(false)}>Kenya</Link>
+        <Link href="/destinations/tanzania" onClick={() => setMobileOpen(false)}>Tanzania</Link>
+        <Link href="/destinations/uganda" onClick={() => setMobileOpen(false)}>Uganda</Link>
+        <Link href="/services/flights" onClick={() => setMobileOpen(false)}>Air tickets</Link>
+        <Link href="/services/visas" onClick={() => setMobileOpen(false)}>Visa assistance</Link>
+        <Link href="/services/hotels" onClick={() => setMobileOpen(false)}>Hotel bookings</Link>
+        <Link href="/services/tours" onClick={() => setMobileOpen(false)}>Tour operations</Link>
+        <Link href="/services/car-rental" onClick={() => setMobileOpen(false)}>Car rental</Link>
+        <Link href="/about" onClick={() => setMobileOpen(false)}>About us</Link>
+        <Link href="/blog" onClick={() => setMobileOpen(false)}>Blog</Link>
+        <Link href="/contact" onClick={() => setMobileOpen(false)}>Contact us</Link>
       </nav>
-
-      {/* Mobile sidebar */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-slate/80 backdrop-blur-sm z-[110]"
-            />
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 20, stiffness: 100 }}
-              className="fixed top-0 right-0 h-full w-[300px] bg-white z-[120] shadow-2xl p-8 overflow-y-auto"
-            >
-              <div className="flex justify-between items-center mb-12">
-                <span className="text-xl font-black text-slate">STUNNING<span className="text-crimson">TRAVEL</span></span>
-                <button onClick={() => setIsOpen(false)} className="text-slate p-2"><X size={28} /></button>
-              </div>
-
-              <div className="space-y-8 pb-12">
-                <div>
-                  <h3 className="text-xs font-bold text-slate/40 uppercase tracking-widest mb-4">Navigation</h3>
-                  <div className="space-y-4">
-                    <Link href="/" className="block text-xl font-bold text-slate hover:text-crimson">Home</Link>
-                    <Link href="#about" className="block text-xl font-bold text-slate hover:text-crimson">About Us</Link>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-xs font-bold text-slate/40 uppercase tracking-widest mb-4">Travel Services</h3>
-                  <div className="space-y-4">
-                    {megaMenuData.travelServices.map(item => (
-                      <Link key={item.name} href={item.href} className="flex items-center space-x-3 text-slate hover:text-crimson font-semibold">
-                        {item.icon} <span>{item.name}</span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-xs font-bold text-slate/40 uppercase tracking-widest mb-4">Visa Hub</h3>
-                  <div className="space-y-4">
-                    {megaMenuData.visaHub.map(item => (
-                      <Link key={item.name} href={item.href} className="flex items-center space-x-3 text-slate hover:text-crimson font-semibold">
-                        {item.icon} <span>{item.name}</span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                <Link
-                  href="#book"
-                  className="block w-full text-center bg-crimson text-white py-4 rounded-2xl font-bold text-lg shadow-xl"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Book Now
-                </Link>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </>
   );
 }

@@ -1,24 +1,41 @@
 import Navbar from '@/components/Navbar';
-import HeroSlider from '@/components/HeroSlider';
-import TrustBar from '@/components/TrustBar';
-import Services from '@/components/Services';
+import JourneyHero from '@/components/JourneyHero';
+import RequestBox from '@/components/RequestBox';
+import IntroSection from '@/components/IntroSection';
+import PhotoServices from '@/components/PhotoServices';
+import CountryGrid from '@/components/CountryGrid';
+import SafariCollection from '@/components/SafariCollection';
+import SplitFlightFeature from '@/components/SplitFlightFeature';
+import FlightFilm from '@/components/FlightFilm';
+import AirlinePartners from '@/components/AirlinePartners';
+import BeachBanner from '@/components/BeachBanner';
+import ExperienceGrid from '@/components/ExperienceGrid';
+import AdventurePace from '@/components/AdventurePace';
+import TravelJournal from '@/components/TravelJournal';
+import ClosingBanner from '@/components/ClosingBanner';
+import RichFooter from '@/components/RichFooter';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
+    <>
       <Navbar />
-      <HeroSlider />
-      <TrustBar />
-      <Services />
-      
-      {/* Footer Placeholder for completeness */}
-      <footer className="bg-slate py-12 text-white/50 text-center border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4">
-          <p className="text-sm font-medium">
-            &copy; {new Date().getFullYear()} Stunning Travel & Tours Ltd. All rights reserved.
-          </p>
-        </div>
-      </footer>
-    </main>
+      <main id="main">
+        <JourneyHero />
+        <RequestBox />
+        <IntroSection />
+        <PhotoServices />
+        <CountryGrid />
+        <SafariCollection />
+        <SplitFlightFeature />
+        <FlightFilm />
+        <AirlinePartners />
+        <BeachBanner />
+        <ExperienceGrid />
+        <AdventurePace />
+        <TravelJournal />
+        <ClosingBanner />
+      </main>
+      <RichFooter />
+    </>
   );
 }
