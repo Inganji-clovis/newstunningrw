@@ -3,7 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 
 export default function FlightFilm() {
   return (
-    <section className="flight-film section" style={{ padding: 0 }}>
+    <section className="section flight-film">
       <article>
         <p className="eyebrow red">THE START OF SOMETHING NEW</p>
         <h2>
@@ -14,30 +14,25 @@ export default function FlightFilm() {
         <p>
           From choosing your route to arranging a comfortable stay, our Kigali team helps you prepare the details.
         </p>
-        <Link href="/services/flights" className="text-link" style={{ color: '#fff' }}>
+        <Link href="/services/flights" className="text-link">
           Explore air ticketing <ArrowUpRight size={17} />
         </Link>
       </article>
-      <figure style={{ position: 'relative', overflow: 'hidden', minHeight: '380px' }}>
-        <img
-          src="/images/Airbus A350.jpg"
-          alt="Modern passenger aircraft"
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        />
-        <figcaption
-          style={{
-            position: 'absolute',
-            bottom: '1rem',
-            left: '1.5rem',
-            fontSize: '0.75rem',
-            color: 'rgba(255,255,255,0.7)',
-            background: 'rgba(0,0,0,0.5)',
-            padding: '0.25rem 0.6rem',
-            borderRadius: '4px',
-          }}
+      <figure>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/assets/flight-poster.jpg"
+          aria-label="Passenger aircraft at an airport"
+          suppressHydrationWarning
         >
-          Air travel inspiration · Modern commercial aviation with international airline partners.
-        </figcaption>
+          <source src="/assets/flight-short.mp4" type="video/mp4" />
+          Your browser does not support video.
+        </video>
+        <figcaption>Air travel inspiration · A passenger aircraft at an airport. Silent video.</figcaption>
       </figure>
     </section>
   );

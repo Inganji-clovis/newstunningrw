@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, ChevronDown, ArrowUpRight, Mail, Phone } from 'lucide-react';
+import { Menu, X, ChevronDown, ArrowUpRight, Mail } from 'lucide-react';
 
 const NAV_DESTINATIONS = [
   { label: 'Rwanda', href: '/destinations/rwanda' },
@@ -19,6 +19,8 @@ const NAV_ASSISTANCE = [
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [openDest, setOpenDest] = useState(false);
+  const [openAssist, setOpenAssist] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
@@ -36,48 +38,36 @@ export default function Navbar() {
     <>
       <a className="skip-link" href="#main">Skip to content</a>
 
-      {/* Contact bar */}
+      {/* Top contact bar */}
       <div className="contact-bar">
         <div>
           <a href="mailto:info@stunningrw.com">
             <Mail size={13} aria-hidden="true" />
             info@stunningrw.com
           </a>
-          <a href="tel:+250788842000">
-            <Phone size={13} aria-hidden="true" />
-            Office: +250 788 842 000
-          </a>
-          <a href="tel:+250788312724">
-            Mobile: +250 788 312 724
-          </a>
+          <a href="tel:+250788842000">Office: +250 788 842 000</a>
+          <a href="tel:+250788312724">Mobile: +250 788 312 724</a>
         </div>
         <div className="social-small">
           <a href="https://www.facebook.com/marvelousrwandatours" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            <img className="social-brand-mark" src="/assets/facebook-f.svg" width={15} height={15} style={{ width: 15, height: 15 }} alt="" aria-hidden="true" />
           </a>
           <a href="https://www.instagram.com/stunningtraveltours_rw/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            <img className="social-brand-mark" src="/assets/instagram.svg" width={15} height={15} style={{ width: 15, height: 15 }} alt="" aria-hidden="true" />
           </a>
           <a href="https://www.linkedin.com/company/stunning-travel-tours-ltd/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            <img className="social-brand-mark" src="/assets/linkedin-in.svg" width={15} height={15} style={{ width: 15, height: 15 }} alt="" aria-hidden="true" />
           </a>
           <a href="https://www.tiktok.com/@stunningtraveltours_rw" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+            <img className="social-brand-mark" src="/assets/tiktok.svg" width={15} height={15} style={{ width: 15, height: 15 }} alt="" aria-hidden="true" />
           </a>
         </div>
       </div>
 
-      {/* Main header */}
+      {/* Site header */}
       <header className="site-header">
         <Link className="real-logo" href="/" aria-label="Stunning Travel & Tours home">
-          <img
-            src="/images/stunning travel and tours logo.png"
-            alt="Stunning Travel & Tours Ltd"
-            style={{ maxHeight: '48px', width: 'auto', objectFit: 'contain' }}
-            onError={(e) => {
-              (e.currentTarget as HTMLElement).style.display = 'none';
-            }}
-          />
+          <img src="/assets/stunning-logo.png?v=2" alt="Stunning Travel & Tours Ltd" />
         </Link>
 
         <nav aria-label="Main navigation">
@@ -85,27 +75,101 @@ export default function Navbar() {
           <Link href="/safaris">Our safaris</Link>
 
           {/* Destinations dropdown */}
-          <div className="dropdown-wrapper">
-            <button type="button" className="nav-dropdown">
+          <div
+            className="dropdown-wrapper"
+            onMouseEnter={() => setOpenDest(true)}
+            onMouseLeave={() => setOpenDest(false)}
+            style={{ position: 'relative' }}
+          >
+            <button
+              type="button"
+              className="nav-dropdown"
+              onClick={() => setOpenDest(!openDest)}
+            >
               Destinations <ChevronDown size={14} />
             </button>
-            <div className="dropdown-menu">
-              {NAV_DESTINATIONS.map(d => (
-                <Link key={d.href} href={d.href}>{d.label}</Link>
-              ))}
-            </div>
+            {openDest && (
+              <div
+                className="dropdown-menu"
+                style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  background: '#fff',
+                  border: '1px solid #e0e5e8',
+                  borderRadius: '6px',
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
+                  padding: '8px 0',
+                  minWidth: '180px',
+                  zIndex: 90,
+                }}
+              >
+                {NAV_DESTINATIONS.map((d) => (
+                  <Link
+                    key={d.href}
+                    href={d.href}
+                    style={{
+                      display: 'block',
+                      padding: '8px 16px',
+                      color: '#1b2c32',
+                      fontSize: '14px',
+                    }}
+                    onClick={() => setOpenDest(false)}
+                  >
+                    {d.label}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Travel assistance dropdown */}
-          <div className="dropdown-wrapper">
-            <button type="button" className="nav-dropdown">
+          <div
+            className="dropdown-wrapper"
+            onMouseEnter={() => setOpenAssist(true)}
+            onMouseLeave={() => setOpenAssist(false)}
+            style={{ position: 'relative' }}
+          >
+            <button
+              type="button"
+              className="nav-dropdown"
+              onClick={() => setOpenAssist(!openAssist)}
+            >
               Travel assistance <ChevronDown size={14} />
             </button>
-            <div className="dropdown-menu">
-              {NAV_ASSISTANCE.map(d => (
-                <Link key={d.href} href={d.href}>{d.label}</Link>
-              ))}
-            </div>
+            {openAssist && (
+              <div
+                className="dropdown-menu"
+                style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  background: '#fff',
+                  border: '1px solid #e0e5e8',
+                  borderRadius: '6px',
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
+                  padding: '8px 0',
+                  minWidth: '220px',
+                  zIndex: 90,
+                }}
+              >
+                {NAV_ASSISTANCE.map((d) => (
+                  <Link
+                    key={d.href}
+                    href={d.href}
+                    style={{
+                      display: 'block',
+                      padding: '8px 16px',
+                      color: '#1b2c32',
+                      fontSize: '14px',
+                    }}
+                    onClick={() => setOpenAssist(false)}
+                  >
+                    {d.label}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           <Link href="/about">About us</Link>
@@ -127,32 +191,62 @@ export default function Navbar() {
       </header>
 
       {/* Mobile nav */}
-      <nav className={`mobile-nav ${mobileOpen ? 'open' : ''}`} aria-label="Mobile navigation">
-        <div className="mobile-nav-head">
-          <img
-            src="/images/stunning travel and tours logo.png"
-            alt="Stunning Travel & Tours"
-            style={{ maxHeight: '40px', width: 'auto' }}
-          />
-          <button aria-label="Close navigation" onClick={() => setMobileOpen(false)} style={{ background: 'none', border: 'none' }}>
-            <X size={24} />
-          </button>
+      {mobileOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0,0,0,0.5)',
+            zIndex: 100,
+          }}
+          onClick={() => setMobileOpen(false)}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              width: '85%',
+              maxWidth: '380px',
+              background: '#fff',
+              padding: '24px',
+              overflowY: 'auto',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+              <img src="/assets/stunning-logo.png?v=2" alt="Stunning Travel & Tours Ltd" style={{ height: '40px', width: 'auto' }} />
+              <button onClick={() => setMobileOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                <X size={24} />
+              </button>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '16px' }}>
+              <Link href="/" onClick={() => setMobileOpen(false)}>Home</Link>
+              <Link href="/safaris" onClick={() => setMobileOpen(false)}>Our safaris</Link>
+              <div style={{ borderTop: '1px solid #eee', paddingTop: '10px' }}>
+                <strong style={{ fontSize: '12px', color: '#999', textTransform: 'uppercase' }}>Destinations</strong>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '8px', paddingLeft: '10px' }}>
+                  {NAV_DESTINATIONS.map((d) => (
+                    <Link key={d.href} href={d.href} onClick={() => setMobileOpen(false)}>{d.label}</Link>
+                  ))}
+                </div>
+              </div>
+              <div style={{ borderTop: '1px solid #eee', paddingTop: '10px' }}>
+                <strong style={{ fontSize: '12px', color: '#999', textTransform: 'uppercase' }}>Travel Assistance</strong>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '8px', paddingLeft: '10px' }}>
+                  {NAV_ASSISTANCE.map((d) => (
+                    <Link key={d.href} href={d.href} onClick={() => setMobileOpen(false)}>{d.label}</Link>
+                  ))}
+                </div>
+              </div>
+              <Link href="/about" onClick={() => setMobileOpen(false)}>About us</Link>
+              <Link href="/blog" onClick={() => setMobileOpen(false)}>Blog</Link>
+              <Link href="/contact" onClick={() => setMobileOpen(false)}>Contact us</Link>
+            </div>
+          </div>
         </div>
-        <Link href="/" onClick={() => setMobileOpen(false)}>Home</Link>
-        <Link href="/safaris" onClick={() => setMobileOpen(false)}>Our safaris</Link>
-        <Link href="/destinations/rwanda" onClick={() => setMobileOpen(false)}>Rwanda</Link>
-        <Link href="/destinations/kenya" onClick={() => setMobileOpen(false)}>Kenya</Link>
-        <Link href="/destinations/tanzania" onClick={() => setMobileOpen(false)}>Tanzania</Link>
-        <Link href="/destinations/uganda" onClick={() => setMobileOpen(false)}>Uganda</Link>
-        <Link href="/services/flights" onClick={() => setMobileOpen(false)}>Air tickets</Link>
-        <Link href="/services/visas" onClick={() => setMobileOpen(false)}>Visa assistance</Link>
-        <Link href="/services/hotels" onClick={() => setMobileOpen(false)}>Hotel bookings</Link>
-        <Link href="/services/tours" onClick={() => setMobileOpen(false)}>Tour operations</Link>
-        <Link href="/services/car-rental" onClick={() => setMobileOpen(false)}>Car rental</Link>
-        <Link href="/about" onClick={() => setMobileOpen(false)}>About us</Link>
-        <Link href="/blog" onClick={() => setMobileOpen(false)}>Blog</Link>
-        <Link href="/contact" onClick={() => setMobileOpen(false)}>Contact us</Link>
-      </nav>
+      )}
     </>
   );
 }

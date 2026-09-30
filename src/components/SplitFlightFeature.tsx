@@ -10,8 +10,8 @@ export default function SplitFlightFeature() {
   return (
     <section className="split-feature section">
       <div className="feature-images">
-        <img loading="lazy" src="/images/city3.jpg" alt="London skyline travel inspiration" />
-        <img loading="lazy" src="/images/beachc.jpg" alt="Hotel room overlooking the ocean" />
+        <img loading="lazy" src="/assets/city3.webp" alt="London skyline" />
+        <img loading="lazy" src="/assets/hotel-seaview.webp" alt="A hotel room overlooking the sea" />
       </div>
       <article>
         <p className="eyebrow red">BUSINESS, VISITS &amp; NEW BEGINNINGS</p>
@@ -25,15 +25,15 @@ export default function SplitFlightFeature() {
         </p>
         <ul className="check-list">
           <li>
-            <CheckCircle2 size={22} aria-hidden="true" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-check" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
             Flight options around your dates
           </li>
           <li>
-            <CheckCircle2 size={22} aria-hidden="true" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-check" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
             Visa application assistance
           </li>
           <li>
-            <CheckCircle2 size={22} aria-hidden="true" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-check" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
             Hotels and onward travel arrangements
           </li>
         </ul>

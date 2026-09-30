@@ -1,19 +1,10 @@
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 
-const AIRLINES = [
-  { name: 'RwandAir', textLogo: true },
-  { name: 'Ethiopian Airlines', image: '/images/ET logo.jpg' },
-  { name: 'Kenya Airways', image: '/images/kq airline.jpg' },
-  { name: 'Qatar Airways', image: '/images/qr logo.png' },
-  { name: 'Turkish Airlines', image: '/images/turkish airline.jpg' },
-  { name: 'KLM', image: '/images/klm logo.jpg' },
-];
-
 export default function AirlinePartners() {
   return (
     <section className="airline-section section">
-      <div className="section-heading" style={{ marginBottom: '1.5rem' }}>
+      <div className="section-heading">
         <div>
           <p className="eyebrow red">MORE WAYS TO GET THERE</p>
           <h2>Let’s find your flight.</h2>
@@ -24,24 +15,14 @@ export default function AirlinePartners() {
       </div>
 
       <div className="airline-strip">
-        {AIRLINES.map((a, idx) => (
-          <span key={idx}>
-            {a.textLogo ? (
-              <strong style={{ fontSize: '1.1rem', letterSpacing: '-0.02em', color: '#111' }}>{a.name}</strong>
-            ) : (
-              <img
-                loading="lazy"
-                src={a.image}
-                alt={a.name}
-                style={{ maxHeight: '32px', width: 'auto', objectFit: 'contain' }}
-              />
-            )}
-          </span>
-        ))}
+        <span><strong>RwandAir</strong></span>
+        <span><img loading="lazy" src="/assets/et-logo.webp" alt="Ethiopian Airlines" /></span>
+        <span><img loading="lazy" src="/assets/kq-airline.webp" alt="Kenya Airways" /></span>
+        <span><img loading="lazy" src="/assets/qr-logo.webp" alt="Qatar Airways" /></span>
+        <span><img loading="lazy" src="/assets/turkish-airline.webp" alt="Turkish Airlines" /></span>
+        <span><img loading="lazy" src="/assets/klm-logo.webp" alt="KLM" /></span>
       </div>
-      <p className="form-note">
-        Ask our team about available airline and route options for your journey.
-      </p>
+      <p className="form-note">Ask our team about available airline and route options for your journey.</p>
     </section>
   );
 }

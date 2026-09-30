@@ -5,19 +5,19 @@ const EXPERIENCES = [
   {
     title: 'Wildlife game drives',
     desc: 'Discover open landscapes and wildlife with a guided safari.',
-    image: '/images/image18.jpg',
+    image: '/assets/image18.webp',
     href: '/safaris',
   },
   {
     title: 'Forest & primate journeys',
     desc: 'Explore gorilla and chimpanzee itineraries in Rwanda and Uganda.',
-    image: '/images/image21.jpg',
+    image: '/assets/image21.webp',
     href: '/safaris',
   },
   {
     title: 'Waterways & scenic escapes',
     desc: 'Make time for boat excursions and slower moments along the journey.',
-    image: '/images/image20.jpg',
+    image: '/assets/image20.webp',
     href: '/safaris',
   },
 ];
@@ -38,7 +38,7 @@ export default function ExperienceGrid() {
       <div className="experience-grid">
         {EXPERIENCES.map((e, idx) => (
           <Link key={idx} href={e.href}>
-            <img src={e.image} alt={e.title} loading="lazy" />
+            <img src={e.image} alt="" loading="lazy" />
             <div>
               <h3>{e.title}</h3>
               <p>{e.desc}</p>

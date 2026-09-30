@@ -5,22 +5,22 @@ const COUNTRIES = [
   {
     name: 'Rwanda',
     href: '/destinations/rwanda',
-    image: '/images/image1.jpg',
+    image: '/assets/image1.webp',
   },
   {
     name: 'Kenya',
     href: '/destinations/kenya',
-    image: '/images/image4.jpg',
+    image: '/assets/kenya-elephants.webp',
   },
   {
     name: 'Tanzania',
     href: '/destinations/tanzania',
-    image: '/images/image3.jpg',
+    image: '/assets/image3.webp',
   },
   {
     name: 'Uganda',
     href: '/destinations/uganda',
-    image: '/images/uganda f.jpg',
+    image: '/assets/uganda-river.webp',
   },
 ];
 

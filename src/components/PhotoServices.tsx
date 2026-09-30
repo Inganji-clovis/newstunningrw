@@ -4,28 +4,28 @@ import { Plane, Globe, Hotel, Compass, ArrowUpRight } from 'lucide-react';
 const SERVICES = [
   {
     href: '/services/flights',
-    image: '/images/et.jpg',
+    image: '/assets/et.webp',
     icon: Plane,
     title: 'Air tickets',
     desc: 'From business trips and family visits to study journeys and holidays, we help you find flight options that fit your route, dates and budget.',
   },
   {
     href: '/services/visas',
-    image: '/images/visa1.jpg',
+    image: '/assets/visa-preparation.webp',
     icon: Globe,
     title: 'Visa assistance',
     desc: 'Get help organising your visa application around your destination, nationality and reason for travel. We explain the next steps and the information needed for your request.',
   },
   {
     href: '/services/hotels',
-    image: '/images/beachc.jpg',
+    image: '/assets/hotel-seaview.webp',
     icon: Hotel,
     title: 'Hotel bookings',
     desc: 'Business hotels, safari lodges and beach stays — we help you arrange accommodation around your itinerary and the way you like to travel.',
   },
   {
     href: '/services/tours',
-    image: '/images/image18.jpg',
+    image: '/assets/mara-elephants.webp',
     icon: Compass,
     title: 'Tour operations',
     desc: 'Explore Rwanda, Uganda, Kenya and Tanzania with an itinerary built around wildlife, landscapes, culture and time to enjoy the journey.',

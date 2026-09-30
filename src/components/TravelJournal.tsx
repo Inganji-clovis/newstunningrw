@@ -6,21 +6,21 @@ const POSTS = [
     country: 'Rwanda',
     title: 'Rwanda, beyond one unforgettable encounter',
     desc: 'Build a journey around primates, wildlife, the city and time to slow down.',
-    image: '/images/image25.jpg',
+    image: '/assets/image25.webp',
     href: '/blog/rwanda-travel-highlights',
   },
   {
     country: 'Kenya',
     title: 'Choosing your Kenya safari route',
     desc: 'A practical starting point for the Mara, Lake Nakuru, Amboseli and the coast.',
-    image: '/images/image4.jpg',
+    image: '/assets/mara-elephants.webp',
     href: '/blog/kenya-safari-planning',
   },
   {
     country: 'Uganda',
     title: 'Planning a primate journey in Uganda',
     desc: 'Bring forest experiences and wildlife stops into one considered itinerary.',
-    image: '/images/image21.jpg',
+    image: '/assets/image21.webp',
     href: '/blog/uganda-primate-journey',
   },
 ];
@@ -41,7 +41,7 @@ export default function TravelJournal() {
       <div className="journal-grid">
         {POSTS.map((post, idx) => (
           <Link key={idx} href={post.href}>
-            <img loading="lazy" src={post.image} alt={post.title} />
+            <img loading="lazy" src={post.image} alt="" />
             <article>
               <p className="eyebrow red">{post.country}</p>
               <h3>{post.title}</h3>

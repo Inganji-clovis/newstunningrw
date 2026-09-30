@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowUpRight, ArrowRight } from 'lucide-react';
 
 interface Slide {
   image: string;
@@ -17,8 +17,8 @@ interface Slide {
 
 const SLIDES: Slide[] = [
   {
-    image: '/images/city3.jpg',
-    alt: 'Dubai skyline at dusk',
+    image: '/assets/dubai-dusk.webp',
+    alt: 'Dubai skyline at sunset',
     eyebrow: 'AIR TICKETS · VISA ASSISTANCE · HOTELS',
     title: 'Your next journey',
     emTitle: 'starts in Kigali.',
@@ -28,8 +28,8 @@ const SLIDES: Slide[] = [
     linkHref: '/services/flights',
   },
   {
-    image: '/images/image21.jpg',
-    alt: 'Mountain gorilla in Rwanda bamboo forest',
+    image: '/assets/gorilla-rwanda.webp',
+    alt: 'Mountain gorilla among green forest leaves',
     eyebrow: 'RWANDA · GORILLA EXPERIENCES',
     title: 'Some encounters',
     emTitle: 'stay with you.',
@@ -39,8 +39,8 @@ const SLIDES: Slide[] = [
     linkHref: '/destinations/rwanda',
   },
   {
-    image: '/images/image4.jpg',
-    alt: 'Elephants in an East African savanna landscape',
+    image: '/assets/mara-elephants.webp',
+    alt: 'Elephant in an East African landscape',
     eyebrow: 'KENYA · TANZANIA · UGANDA · RWANDA',
     title: 'Open horizons.',
     emTitle: 'Extraordinary journeys.',
@@ -50,8 +50,8 @@ const SLIDES: Slide[] = [
     linkHref: '/safaris',
   },
   {
-    image: '/images/beach1.jpg',
-    alt: 'Turquoise ocean and tropical island coastline in Zanzibar',
+    image: '/assets/island-poster.webp',
+    alt: 'Turquoise ocean and tropical island coastline',
     eyebrow: 'BEACH HOLIDAYS · ISLAND STAYS',
     title: 'Take a little time',
     emTitle: 'for the ocean.',
@@ -84,7 +84,12 @@ export default function JourneyHero() {
       <div className="overflow-hidden" style={{ height: '100%' }}>
         <div
           className="journey-track"
-          style={{ transform: `translateX(-${current * 100}%)` }}
+          style={{
+            display: 'flex',
+            transform: `translateX(-${current * 100}%)`,
+            transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+            height: '100%',
+          }}
         >
           {SLIDES.map((slide, idx) => (
             <div
@@ -92,6 +97,7 @@ export default function JourneyHero() {
               role="group"
               aria-roledescription="slide"
               className="journey-slide"
+              style={{ minWidth: '100%', flexShrink: 0 }}
               aria-hidden={current !== idx}
             >
               <img
@@ -132,29 +138,13 @@ export default function JourneyHero() {
         </div>
       </div>
 
-      {/* Navigation arrows */}
-      <button
-        className="carousel-btn prev"
-        aria-label="Previous slide"
-        onClick={() => setCurrent((prev) => (prev === 0 ? SLIDES.length - 1 : prev - 1))}
-      >
-        <ChevronLeft size={22} />
-      </button>
-      <button
-        className="carousel-btn next"
-        aria-label="Next slide"
-        onClick={() => setCurrent((prev) => (prev + 1) % SLIDES.length)}
-      >
-        <ChevronRight size={22} />
-      </button>
-
-      {/* Progress dots */}
       <div className="journey-progress" aria-hidden="true">
         {SLIDES.map((_, idx) => (
           <span
             key={idx}
             className={current === idx ? 'active' : ''}
             onClick={() => setCurrent(idx)}
+            style={{ cursor: 'pointer' }}
           />
         ))}
       </div>
